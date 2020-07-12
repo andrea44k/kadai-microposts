@@ -67,4 +67,20 @@ public function followings($id)
         return view('users.show', $data);
     }
 
+/*favorites
+=====================================*/
+        public function favorites($id)
+    {
+        $user = User::find($id);
+        $favorites = $user->favorites()->paginate(10);
+
+        $data = [
+            'user' => $user,
+            'microposts' => $favorites,
+        ];
+
+        $data += $this->counts($user);
+
+        return view('users.favorites', $data);
+    }
 }
